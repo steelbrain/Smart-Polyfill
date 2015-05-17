@@ -2,7 +2,7 @@ Smart-Polyfill
 ===========
 Smart-Polyfill is a smart modular Polyfill server written in NodeJS. It's extremely easy to extend. It allows you to send the client exactly what it needs, for example If the browser is only lacking support for `String.prototype.{starts,ends}With` it will send it only that and nothing more. It contains an HTTP server too, which is great in collaboration with nginx.
 
-#### Set up
+### Set up
 In your project root do
 ```bash
 git clone https://github.com/steelbrain/Smart-Polyfill
@@ -11,8 +11,8 @@ nodejs Server.js 8080 # Replace 8080 with a port of your choice
 ```
 Now navigate to `http://localhost:8080/polyfill.js` in a browser of your choice to see it's specific polyfills.
 
-#### Adding more Shims
-Adding more shims to Smart-Polyfill is as simple as writing a function, choose a file in Polyfills directory, create a new one if not exists already (and require it in Bin/Server.js).
+### Adding more Shims
+Adding more shims to Smart-Polyfill is as simple as writing a function, choose a file in Polyfills directory, create a new one if you want (and require it in Bin/Server.js).
 An example of `String.prototype.startsWith` shim
 ```js
 SmartPolyfill.register('String.prototype.startsWith', {
@@ -27,7 +27,7 @@ SmartPolyfill.register('String.prototype.startsWith', {
 });
 ```
 
-#### Nginx Configuration
+### Nginx Configuration
 Just drop this line in your nginx configuration's server block to proxy the `polyfill.js ` requests through Smart-Polyfill.
 ```
   location /polyfill.js{
