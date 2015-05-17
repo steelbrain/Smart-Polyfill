@@ -12,8 +12,8 @@ class Polyfill{
         Polyfill.serverRequest(Request, Response);
         Response.end("")
       } catch(e){
-        Response.status(404)        // HTTP status 404: NotFound
-          .end('Not found');
+        Response.statusCode = 404;
+        Response.end("Not Found");
       }
     }).listen(Port);
   }
