@@ -14,29 +14,31 @@ class Polyfill{
   static listen(Port){
     return HTTP.createServer(function(Request, Response){
       try {
-        Polyfill.serverRequest(Request, Response);
-        Response.end("");
+        let Content = Polyfill.serverRequest(Request);
+        Response.setHeader("Content-Type", "application/javascript");
+        Response.setHeader('Content-Length', Content.length);
+        Response.write(Content);
       } catch(e){
-        Response.statusCode = 404;
-        Response.end("Not Found");
+        Response.writeHead(404);
+        Response.write("Not Found");
       }
+      Response.end();
     }).listen(Port, "0.0.0.0");
   }
   static register(Name, Browsers, Function){
     Polyfills.push({Name: Name, Browsers: Browsers, Function: Function.toString()});
   }
-  static serverRequest(Request, Response){
+  static serverRequest(Request){
     if(Request.url !== '/polyfill.js' && Request.url !== '/polyfill.min.js'){
       throw null
     }
-    Response.writeHeader("Content-Type", "application/javascript");
 
     var Browser = Polyfill.recognizeBrowser(Request.headers['user-agent'] || '');
     let IsMinified = Request.url === '/polyfill.min.js';
     let CacheKey = Browser.Name + ':' + Browser.Version + ':' + IsMinified;
 
     if(Browser.Version === 0) return ;
-    if(PolyfillCache.has(CacheKey)) return Response.write(PolyfillCache.get(CacheKey));
+    if(PolyfillCache.has(CacheKey)) return PolyfillCache.get(CacheKey);
 
     let Content = [];
     let PolyFillsAdded = [];
@@ -49,9 +51,9 @@ class Polyfill{
       PolyFillsAdded.push(Name);
       Content.push(Name + ' = ' + Function);
     });
-    Content = "(function(){\n\n// Polyfills Added:  " + PolyFillsAdded.join(', ') + "\n\n" + Content.join(";\n") + ";\n})()";
+    Content = "(function(){\n\n// Polyfills Added:  " + PolyFillsAdded.join(', ') + "\n\n" + Content.join(";\n") + "\n})()";
     PolyfillCache.set(CacheKey, Content);
-    Response.write(Content);
+    return Content;
   }
   static matches(Browser, Condition){
     if(Condition.indexOf('-') !== -1){
