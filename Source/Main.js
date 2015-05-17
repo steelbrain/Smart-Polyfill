@@ -4,30 +4,59 @@ let HTTP = require('http');
 let LRU = require('lru-cache');
 
 let BrowserCache = new LRU(50);
+let PolyfillCache = new LRU(500);
+let Polyfills = [];
 
 class Polyfill{
-  static Listen(Port){
+  static listen(Port){
     return HTTP.createServer(function(Request, Response){
       try {
         Polyfill.serverRequest(Request, Response);
-        Response.end("")
+        Response.end("");
       } catch(e){
         Response.statusCode = 404;
         Response.end("Not Found");
       }
     }).listen(Port);
   }
+  static register(Name, Browsers, Function){
+    Polyfills.push({Name: Name, Browsers: Browsers, Function: Function.toString()});
+  }
   static serverRequest(Request, Response){
-    var Browser;
-    if(Request.url !== '/polyfill.js'){
+    if(Request.url !== '/polyfill.js' && Request.url !== '/polyfill.min.js'){
       throw null
     }
     Response.writeHeader("Content-Type", "application/javascript");
 
-    Browser = Polyfill.recognizeBrowser(Request.headers['user-agent'] || '');
+    var Browser = Polyfill.recognizeBrowser(Request.headers['user-agent'] || '');
+    let IsMinified = Request.url === '/polyfill.min.js';
+    let CacheKey = Browser.Name + ':' + Browser.Version + ':' + IsMinified;
 
     if(Browser.Version === 0) return ;
-    console.log(Browser);
+    if(PolyfillCache.has(CacheKey)) return Response.write(PolyfillCache.get(CacheKey));
+
+    let Content = [];
+    let PolyFillsAdded = [];
+    Polyfills.forEach(function(Info){ // O YEE DUSTRUCTURING WHY U NO SUPPORT?!
+      let Name = Info.Name;
+      let Browsers = Info.Browsers;
+      let Function = Info.Function;
+      if(!(Browser.Name in Browsers)) return ;
+      if(Browsers[Browser.Name] !== '*' && !Polyfill.matches(Browser, Browsers[Browser.Name])) return ;
+      PolyFillsAdded.push(Name);
+      Content.push(Name + ' = ' + Function);
+    });
+    Content = "(function(){\n\n// Polyfills Added:  " + PolyFillsAdded.join(', ') + "\n\n" + Content.join(";\n") + ";\n})()";
+    PolyfillCache.set(CacheKey, Content);
+    Response.write(Content);
+  }
+  static matches(Browser, Condition){
+    if(Condition.indexOf('-') !== -1){
+      let Chunks = Condition.split('-');
+      return Browser.Version >= Number(Chunks[0].trim()) && Browser.Version <= Number(Chunks[1].trim());
+    } else {
+      return Browser.Version === Number(Condition);
+    }
   }
   static recognizeBrowser(UserAgent){
 
@@ -67,5 +96,7 @@ Polyfill.Netscape = 'Netscape';
 Polyfill.Chrome = 'Chrome';
 Polyfill.Safari = 'Safari';
 Polyfill.Firefox = 'Firefox';
+
+global.SmartPolyfill = Polyfill;
 
 module.exports = Polyfill;
