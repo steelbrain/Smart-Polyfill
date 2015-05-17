@@ -1,5 +1,8 @@
 "use strict";
 
+// @Compiler-Transpile "true"
+// @Compiler-Output "../Dist/Main.js"
+
 let HTTP = require('http');
 let LRU = require('lru-cache');
 

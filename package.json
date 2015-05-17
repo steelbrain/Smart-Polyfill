@@ -4,11 +4,11 @@
   "description": "A smart polyfill server for Browsers",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "mkdir -p Dist; uc-compile Source/Main.js"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/steelbrain/Smart-Polyfill.git"
+    "url": "https://github.com/steelbrain/Smart-Polyfill"
   },
   "keywords": [
     "polyfill",
@@ -20,5 +20,5 @@
   "bugs": {
     "url": "https://github.com/steelbrain/Smart-Polyfill/issues"
   },
-  "homepage": "https://github.com/steelbrain/Smart-Polyfill#readme"
+  "homepage": "https://github.com/steelbrain/Smart-Polyfill"
 }
