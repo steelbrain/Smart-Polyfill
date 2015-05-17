@@ -1,4 +1,4 @@
-"use strict";
+#!/usr/bin/env nodejs
 var Cluster = require('cluster');
 var Port = Number(process.argv[2]);
 if(Cluster.isMaster){
