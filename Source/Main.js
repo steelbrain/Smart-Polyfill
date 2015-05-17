@@ -17,7 +17,7 @@ class Polyfill{
         Response.statusCode = 404;
         Response.end("Not Found");
       }
-    }).listen(Port);
+    }).listen(Port, "0.0.0.0");
   }
   static register(Name, Browsers, Function){
     Polyfills.push({Name: Name, Browsers: Browsers, Function: Function.toString()});
