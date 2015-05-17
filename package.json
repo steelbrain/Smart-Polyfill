@@ -2,7 +2,7 @@
   "name": "smart-polyfill",
   "version": "0.0.2",
   "description": "A smart polyfill server for Browsers",
-  "main": "index.js",
+  "main": "Main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "mkdir -p Dist; uc-compile Source/Main.js"
@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/steelbrain/Smart-Polyfill/issues"
   },
-  "homepage": "https://github.com/steelbrain/Smart-Polyfill"
+  "homepage": "https://github.com/steelbrain/Smart-Polyfill",
+  "bin" : {
+    "smart-polyfill" : "./Bin/Server.js"
+  }
 }
