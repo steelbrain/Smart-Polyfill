@@ -1,6 +1,6 @@
 {
   "name": "smart-polyfill",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A smart polyfill server for Browsers",
   "main": "index.js",
   "scripts": {
