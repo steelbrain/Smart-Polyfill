@@ -12,5 +12,6 @@ if(Cluster.isMaster){
   }
 } else {
   var Polyfill = require('../Main');
-  Polyfill.Listen(Port);
+  require('../Polyfills/Element');
+  Polyfill.listen(Port);
 }
