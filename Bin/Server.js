@@ -12,8 +12,10 @@ if(Cluster.isMaster){
   }
 } else {
   var Polyfill = require('../Main');
-  require('../Polyfills/ES6-String');
-  require('../Polyfills/Object');
+  require('../Polyfills/Array');
   require('../Polyfills/Date');
+  require('../Polyfills/Function');
+  require('../Polyfills/Object');
+  require('../Polyfills/String');
   Polyfill.listen(Port);
 }
