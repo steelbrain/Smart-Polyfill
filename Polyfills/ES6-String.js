@@ -1,28 +1,9 @@
-'use strict';
-
-SmartPolyfill.register('Element.prototype.closest', {
-  Chrome: '*',
-  IE: '*',
-  Netscape: '*',
-  Safari: '*',
-  Firefox: '*',
-  Opera: '*'
-}, function(Selector){
-  var node = this;
-
-  while (node) {
-    if (node.matches(Selector)) return node;
-    else node = node.parentElement;
-  }
-
-  return null;
-});
-
+"use strict";
+// Polyfills for ES6 String functions
 SmartPolyfill.register('String.prototype.includes', {
   Chrome: '1 - 40',
   Firefox: '1 - 39',
   IE: '*',
-  Netscape: '*',
   Safari: '*'
 }, function(text, startIndex){
   return this.indexOf(text, startIndex) !== -1;
@@ -32,7 +13,6 @@ SmartPolyfill.register('String.prototype.startsWith', {
   Chrome: '1 - 40',
   Firefox: '1 - 16',
   IE: '*',
-  Netscape: '*',
   Safari: '*'
 }, function(searchString, position){
   position = position || 0;
@@ -42,7 +22,6 @@ SmartPolyfill.register('String.prototype.endsWith', {
   Chrome: '1 - 40',
   Firefox: '1 - 16',
   IE: '*',
-  Netscape: '*',
   Safari: '*'
 }, function(searchString, position){
   var subjectString = this.toString();
