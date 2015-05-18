@@ -74,8 +74,6 @@ class Polyfill{
         Browser.Name = Polyfill.Opera;
       } else if (/MSIE (\d+\.\d+);/.test(UserAgent)) {
         Browser.Name = Polyfill.IE;
-      } else if (/Navigator[\/\s](\d+\.\d+)/.test(UserAgent)) {
-        Browser.Name = Polyfill.Netscape;
       } else if (/Chrome[\/\s](\d+\.\d+)/.test(UserAgent)) {
         Browser.Name = Polyfill.Chrome;
       } else if (/Safari[\/\s](\d+\.\d+)/.test(UserAgent)) {
@@ -97,7 +95,6 @@ class Polyfill{
 
 Polyfill.Opera = 'Opera';
 Polyfill.IE = 'IE';
-Polyfill.Netscape = 'Netscape';
 Polyfill.Chrome = 'Chrome';
 Polyfill.Safari = 'Safari';
 Polyfill.Firefox = 'Firefox';
