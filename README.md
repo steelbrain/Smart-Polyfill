@@ -7,7 +7,7 @@ In your project root do
 ```bash
 git clone https://github.com/steelbrain/Smart-Polyfill
 cd Smart-Polyfill/Bin
-nodejs Server.js 8080 # Replace 8080 with a port of your choice
+iojs Server.js 8080 # Replace 8080 with a port of your choice
 ```
 Now navigate to `http://localhost:8080/polyfill.js` in a browser of your choice to see it's specific polyfills.
 
