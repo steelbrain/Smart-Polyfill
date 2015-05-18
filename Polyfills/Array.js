@@ -40,3 +40,14 @@ SmartPolyfill.register('Array.prototype.forEach', {
     callback.call(thisArg, this[i], i, this);
   }
 });
+SmartPolyfill.register('Array.prototype.map', {
+  IE: '1 - 8'
+}, function(callback, thisArg){
+  if(typeof callback !== 'function') throw new TypeError("Callback is not a function");
+  thisArg = typeof thisArg === 'undefined' ? this : thisArg;
+  var ToReturn = [];
+  for(var i = 0; i < this.length; ++i){
+    ToReturn.push(callback.call(thisArg, this[i], i, this));
+  }
+  return ToReturn;
+});
