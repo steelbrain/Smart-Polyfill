@@ -4,7 +4,8 @@ SmartPolyfill.register('Object.create', {
   Chrome: '1 - 4',
   Firefox: '1 - 3',
   IE: '1 - 8',
-  Safari: '1 - 4'
+  Safari: '1 - 4',
+  Opera: '1 - 10'
 }, function(o, props){
   function F() {}
   F.prototype = o;
