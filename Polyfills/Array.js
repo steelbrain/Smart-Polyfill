@@ -51,3 +51,14 @@ SmartPolyfill.register('Array.prototype.map', {
   }
   return ToReturn;
 });
+SmartPolyfill.register('Array.prototype.filter', {
+  IE: '1 - 8'
+}, function(callback, thisArg){
+  if(typeof callback !== 'function') throw new TypeError("Callback is not a function");
+  thisArg = typeof thisArg === 'undefined' ? this : thisArg;
+  var ToReturn = [];
+  for(var i = 0; i < this.length; ++i){
+    if(callback.call(thisArg, this[i], i, this)) ToReturn.push(this[i]);
+  }
+  return ToReturn;
+});
