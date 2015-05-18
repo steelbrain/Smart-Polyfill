@@ -9,3 +9,14 @@ SmartPolyfill.register('Array.isArray', {
 }, function(o){
   return Object.prototype.toString.call(o) === '[object Array]';
 });
+SmartPolyfill.register('Array.prototype.indexOf', {
+  IE: '1 - 8'
+}, function(searchElement, fromIndex) {
+  fromIndex = fromIndex || 0;
+  if(fromIndex < this.length){
+    for(var i = fromIndex; i < this.length; ++i){
+      if(this[i] === searchElement) return i;
+    }
+  }
+  return -1;
+});
