@@ -1,5 +1,5 @@
 "use strict";
-// Polyfills for commonly used functions for IE8-
+// Polyfills for commonly used Object functions
 SmartPolyfill.register('Object.create', {
   Chrome: '1 - 4',
   Firefox: '1 - 3',
