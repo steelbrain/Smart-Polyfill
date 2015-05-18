@@ -4,7 +4,8 @@
   "description": "A smart polyfill server for Browsers",
   "main": "Main.js",
   "dependencies":{
-    "uglify-js": "latest"
+    "uglify-js": "latest",
+    "lru-cache": "latest"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
