@@ -5,9 +5,9 @@
 
 let HTTP = require('http');
 let LRU = require('lru-cache');
+let UglifyJS = require('uglify-js');
 
 let BrowserCache = new LRU(50);
-let PolyfillCache = new LRU(500);
 let Polyfills = [];
 
 class Polyfill{
@@ -35,10 +35,8 @@ class Polyfill{
 
     var Browser = Polyfill.recognizeBrowser(Request.headers['user-agent'] || '');
     let IsMinified = Request.url === '/polyfill.min.js';
-    let CacheKey = Browser.Name + ':' + Browser.Version + ':' + IsMinified;
 
     if(Browser.Version === 0) return ;
-    if(PolyfillCache.has(CacheKey)) return PolyfillCache.get(CacheKey);
 
     let Content = [];
     let PolyFillsAdded = [];
@@ -52,7 +50,7 @@ class Polyfill{
       Content.push(Name + ' = ' + Function);
     });
     Content = "(function(){\n\n// Polyfills Added:  " + PolyFillsAdded.join(', ') + "\n\n" + Content.join(";\n") + "\n})()";
-    PolyfillCache.set(CacheKey, Content);
+    if(IsMinified) Content = UglifyJS.minify(Content, {fromString: true}).code;
     return Content;
   }
   static matches(Browser, Condition){
