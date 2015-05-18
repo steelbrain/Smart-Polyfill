@@ -3,9 +3,8 @@ Smart-Polyfill
 Smart-Polyfill is a smart modular Polyfill server written in NodeJS. It's extremely easy to extend. It allows you to send the client exactly what it needs, for example If the browser is only lacking support for `String.prototype.{starts,ends}With` it will send it only that and nothing more. It contains an HTTP server too, which is great in collaboration with nginx.
 
 ### Set up
-In your project root do
 ```bash
-npm install -g smart-polyfill
+sudo npm install -g smart-polyfill
 smart-polyfill 8080 # Replace 8080 with a port of your choice
 ```
 Now navigate to `http://localhost:8080/polyfill.js` in a browser of your choice to see it's specific polyfills.
