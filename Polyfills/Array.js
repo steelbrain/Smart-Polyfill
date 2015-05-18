@@ -62,3 +62,16 @@ SmartPolyfill.register('Array.prototype.filter', {
   }
   return ToReturn;
 });
+SmartPolyfill.register('Array.prototype.reduce', {
+  IE: '1 - 8',
+  Firefox: '1 - 3',
+  Safari: '1 - 3',
+  Opera: '1 - 10'
+}, function(callback, value){
+  if(typeof callback !== 'function') throw new TypeError("Callback is not a function");
+  value = value || 0;
+  for(var i = 0; i < this.length; ++i){
+    if(this[i]) value = callback.call(this, value, this[i], i, this);
+  }
+  return value;
+});
