@@ -69,9 +69,10 @@ SmartPolyfill.register('Array.prototype.reduce', {
   Opera: '1 - 10'
 }, function(callback, value){
   if(typeof callback !== 'function') throw new TypeError("Callback is not a function");
-  value = value || 0;
-  for(var i = 0; i < this.length; ++i){
-    if(this[i]) value = callback.call(this, value, this[i], i, this);
+  var i = 0;
+  value = value || this[i++];
+  for(; i < this.length; ++i){
+    value = callback.call(this, value, this[i], i, this);
   }
   return value;
 });
