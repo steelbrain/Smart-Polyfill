@@ -20,3 +20,14 @@ SmartPolyfill.register('Array.prototype.indexOf', {
   }
   return -1;
 });
+SmartPolyfill.register('Array.prototype.lastIndexOf', {
+  IE: '1 - 8'
+}, function(searchElement, fromIndex){
+  fromIndex = fromIndex || this.length - 1;
+  if(fromIndex < this.length){
+    for(var i = fromIndex; i < this.length && i > -1; --i){
+      if(this[i] === searchElement) return i;
+    }
+  }
+  return -1;
+});
