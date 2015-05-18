@@ -31,3 +31,12 @@ SmartPolyfill.register('Array.prototype.lastIndexOf', {
   }
   return -1;
 });
+SmartPolyfill.register('Array.prototype.forEach', {
+  IE: '1 - 8'
+}, function(callback, thisArg){
+  if(typeof callback !== 'function') throw new TypeError("Callback is not a function");
+  thisArg = typeof thisArg === 'undefined' ? this : thisArg;
+  for(var i = 0; i < this.length; ++i){
+    callback.call(thisArg, this[i], i, this);
+  }
+});
