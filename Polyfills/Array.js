@@ -76,3 +76,16 @@ SmartPolyfill.register('Array.prototype.reduce', {
   }
   return value;
 });
+SmartPolyfill.register('Array.from', {
+  IE: '*',
+  Chrome: '*',
+  Firefox: '1 - 31',
+  Safari: '*',
+  Opera: '*'
+}, function(Input, mapFn, thisArg){
+  if(typeof mapFn === 'undefined'){
+    return Array.prototype.slice.call(Input);
+  } else {
+    return Array.prototype.map.call(Input, mapFn, thisArg);
+  }
+});
