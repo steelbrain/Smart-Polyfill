@@ -6,19 +6,13 @@ SmartPolyfill.register('Function.prototype.bind', {
   IE: '1 - 8',
   Safari: '1 - 4',
   Opera: '1 - 10'
-}, function(b) {
+}, function(thisArg) {
   if (typeof this !== "function") {
     throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
   }
-
-  function c() {}
-  var a = [].slice,
-    f = a.call(arguments, 1),
-    e = this,
-    d = function() {
-      return e.apply(this instanceof c ? this : b || window, f.concat(a.call(arguments)));
-    };
-  c.prototype = this.prototype;
-  d.prototype = new c();
-  return d;
+  var Callback = this;
+  var Rest = Array.prototype.slice.call(arguments, 1);
+  return function(){
+    return Callback.apply(thisArg, Rest.concat(Array.prototype.slice.call(arguments)));
+  };
 });
