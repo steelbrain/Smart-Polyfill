@@ -89,3 +89,12 @@ SmartPolyfill.register('Array.from', {
     return Array.prototype.map.call(Input, mapFn, thisArg);
   }
 });
+SmartPolyfill.register('Array.of', {
+  IE: '*',
+  Chrome: '1 - 38',
+  Firefox: '1 - 24',
+  Safari: '*',
+  Opera: '*'
+}, function(){
+  return Array.prototype.slice.call(arguments);
+});
