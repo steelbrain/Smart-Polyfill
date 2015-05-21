@@ -98,3 +98,17 @@ SmartPolyfill.register('Array.of', {
 }, function(){
   return Array.prototype.slice.call(arguments);
 });
+SmartPolyfill.register('Array.prototype.find', {
+  IE: '*',
+  Chrome: '*',
+  Firefox: '1 - 24',
+  Safari: '*',
+  Opera: '*'
+}, function(Callback, thisArg){
+  var Ret;
+  for(var i = 0; i <= this.length; ++i){
+    Ret = Callback.call(thisArg, this[i], i, this);
+    if(Ret !== false) return Ret;
+  }
+  return Ret;
+});
