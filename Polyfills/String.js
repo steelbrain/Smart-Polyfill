@@ -41,3 +41,21 @@ SmartPolyfill.register('String.prototype.trim', {
   Safari: '1 - 4',
   Opera: '1 - 10'
 }, function(){return this.replace(/^\s+|\s+$/g, '')});
+SmartPolyfill.register('String.prototype.repeat', {
+  Chrome: '1 - 40',
+  Firefox: '1 - 23',
+  IE: '*',
+  Safari: '*',
+  Opera: '*'
+}, function(count){
+  count = parseInt(count).toFixed();
+  if(count < 1){
+    throw new RangeError();
+  }
+  var str = '' + this;
+  var ToReturn = [];
+  for(var i = 0; i < count; ++i){
+    ToReturn.push(str);
+  }
+  return ToReturn.join('');
+});
