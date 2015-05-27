@@ -28,7 +28,7 @@ SmartPolyfill.register('String.prototype.startsWith', {
 ### Nginx Configuration
 Just drop this line in your nginx configuration's server block to proxy the `polyfill.js ` requests through Smart-Polyfill.
 ```
-  location /polyfill.js{
+  location =/polyfill.js {
     proxy_pass http://localhost:8080/polyfill.js;
   }
 ```
