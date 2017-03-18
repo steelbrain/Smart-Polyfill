@@ -1,5 +1,7 @@
 Smart-Polyfill
 ===========
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/steelbrain/Smart-Polyfill.svg)](https://greenkeeper.io/)
 Smart-Polyfill is a smart modular Polyfill server written in NodeJS. It's extremely easy to extend. It allows you to send the client exactly what it needs, for example If the browser is only lacking support for `String.prototype.{starts,ends}With` it will send it only that and nothing more. It contains an HTTP server too, which is great in collaboration with nginx.
 
 ### Set up
